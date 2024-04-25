@@ -4,13 +4,13 @@ const userSchema = new Schema({
     username: {
         type: String,
         unique: true,
-        required: true,
-        trim: true
+        required: true, // 'username' is a required field, meaning it must be provided.
+        trim: true // Trims whitespace from the 'username' before saving to the database.
     },
     email: {
         type: String,
         unique: true,
-        required: true,
+        required: true, 
         // regex email validation: https://regexr.com/3e48o
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Invalid entry: please enter a valid email address",]
     },
