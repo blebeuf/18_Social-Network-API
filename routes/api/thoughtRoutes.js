@@ -7,7 +7,7 @@ const {
   removeThought,
   addReaction,
   removeReaction,
-} = require("../../controllers/thought-controller");
+} = require("../../controllers/thoughtControl");
 
 // Set up routes for the Thoughts API
 
