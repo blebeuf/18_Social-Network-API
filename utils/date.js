@@ -20,6 +20,8 @@ const addDateSuffix = date => {
   };
   
   // Main function to format a timestamp into a human-readable date string.
+  // resource: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+  // resource for ternary: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
   module.exports = (timestamp, { monthLength = 'short', dateSuffix = true } = {}) => {
     const months = [
       [ 'Jan', 'January' ],
