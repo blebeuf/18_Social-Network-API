@@ -61,8 +61,8 @@ const thoughtController = {
     }
   },
 
-  // Delete a thought and update user associations
-  async deleteThought(req, res) {
+  // Remove a thought and update user associations
+  async removeThought(req, res) {
     try {
       const thought = await Thought.findByIdAndDelete(req.params.id);
       if (!thought) {
@@ -99,7 +99,7 @@ const thoughtController = {
   },
 
   // Delete a reaction from a thought
-  async deleteReaction(req, res) {
+  async removeReaction(req, res) {
     try {
       const thought = await Thought.findByIdAndUpdate(
         req.params.thoughtId,
