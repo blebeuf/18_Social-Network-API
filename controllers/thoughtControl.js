@@ -1,4 +1,3 @@
-// this is based on some logic used and taught to us within the Mini-project for module 18
 const { Thought, User } = require("../models");
 
 const thoughtController = {
@@ -8,7 +7,7 @@ const thoughtController = {
       const thoughts = await Thought.find();
       res.json(thoughts);
     } catch (err) {
-      console.error(err);
+      console.error("Error fetching thoughts:", err);
       res.status(500).json(err);
     }
   },
@@ -22,7 +21,7 @@ const thoughtController = {
       }
       res.json(thought);
     } catch (err) {
-      console.error(err);
+      console.error("Error fetching thought by ID:", err);
       res.status(400).json(err);
     }
   },
@@ -31,14 +30,14 @@ const thoughtController = {
   async createThought(req, res) {
     try {
       const dbThoughtData = await Thought.create(req.body);
-      const userData = await User.findByIdAndUpdate(
+      await User.findByIdAndUpdate(
         req.body.userID,
         { $push: { thoughts: dbThoughtData._id } },
         { new: true }
       );
-      res.json(userData);
+      res.json(dbThoughtData);
     } catch (err) {
-      console.error(err);
+      console.error("Error creating thought:", err);
       res.status(500).json(err);
     }
   },
@@ -48,15 +47,15 @@ const thoughtController = {
     try {
       const updatedThought = await Thought.findByIdAndUpdate(
         req.params.id,
-        { $set: req.body },
-        { runValidators: true, new: true }
+        req.body,
+        { new: true, runValidators: true }
       );
       if (!updatedThought) {
         return res.status(404).json({ message: "No thought by that ID" });
       }
       res.json(updatedThought);
     } catch (err) {
-      console.error(err);
+      console.error("Error updating thought:", err);
       res.status(500).json(err);
     }
   },
@@ -75,7 +74,7 @@ const thoughtController = {
       );
       res.json({ message: "Thought deleted successfully" });
     } catch (err) {
-      console.error(err);
+      console.error("Error deleting thought:", err);
       res.status(500).json(err);
     }
   },
@@ -86,19 +85,19 @@ const thoughtController = {
       const thought = await Thought.findByIdAndUpdate(
         req.params.thoughtId,
         { $addToSet: { reactions: req.body } },
-        { runValidators: true, new: true }
+        { new: true }
       );
       if (!thought) {
         return res.status(404).json({ message: "No thought found with that ID" });
       }
       res.json(thought);
     } catch (err) {
-      console.error(err);
+      console.error("Error adding reaction:", err);
       res.status(500).json(err);
     }
   },
 
-  // Delete a reaction from a thought
+  // Remove a reaction from a thought
   async removeReaction(req, res) {
     try {
       const thought = await Thought.findByIdAndUpdate(
@@ -111,10 +110,10 @@ const thoughtController = {
       }
       res.json(thought);
     } catch (err) {
-      console.error(err);
+      console.error("Error removing reaction:", err);
       res.status(500).json(err);
     }
-  },
+  }
 };
 
 module.exports = thoughtController;
