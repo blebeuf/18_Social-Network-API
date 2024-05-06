@@ -1,6 +1,6 @@
 const { Thought, User } = require("../models");
 
-const thoughtController = {
+const thoughtControl = {
   // Get all thoughts
   async getAllThoughts(req, res) {
     try {
@@ -116,4 +116,4 @@ const thoughtController = {
   }
 };
 
-module.exports = thoughtController;
+module.exports = thoughtControl;

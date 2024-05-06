@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  getAllThought,
+  getAllThoughts,
   getThoughtById,
   createThought,
   updateThought,
@@ -8,12 +8,11 @@ const {
   addReaction,
   removeReaction,
 } = require("../../controllers/thoughtControl");
-
 // Set up routes for the Thoughts API
 
 // Routes for accessing all thoughts and creating a new thought
 router.route("/")
-  .get(getAllThought) // GET all thoughts
+  .get(getAllThoughts) // GET all thoughts
   .post(createThought); // POST a new thought
 
 // Routes for accessing, updating, and deleting a specific thought by its ID
